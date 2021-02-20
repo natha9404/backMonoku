@@ -16,9 +16,10 @@ class Artist(models.Model):
 
 class Song(models.Model):
     external_id = models.IntegerField(null=False)
-    #date = models.DateTimeField()
     name = models.CharField(max_length=100)
     genre = models.CharField(max_length=100)
+    album = models.CharField(max_length=100)
+    duration = models.CharField(max_length=100)
     subgenre = models.CharField(max_length=100)
     similar_band = models.CharField(max_length=100)
     tag = models.CharField(max_length=100)
@@ -34,3 +35,11 @@ class Song(models.Model):
 
     def __str__(self):
         return self.name
+
+class Csv(models.Model):
+    file_name = models.FileField(upload_to='csvs')
+    uploaded = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"File id: {self.id}"
+    

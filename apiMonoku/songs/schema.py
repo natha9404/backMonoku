@@ -22,6 +22,8 @@ class SongType(DjangoObjectType):
             "external_id",
             "name",
             "similar_band",
+            "album",
+            "duration",
             "tag",
             "instrument",
             "band",
