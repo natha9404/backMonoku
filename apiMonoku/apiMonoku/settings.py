@@ -86,7 +86,7 @@ DATABASES = {
 #https://docs.graphene-python.org/
 
 GRAPHENE = {
-    "SCHEMA": "django_root.schema.schema"
+    "SCHEMA": "songs.schema.schema"
 }
 
 # Password validation
