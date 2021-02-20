@@ -1,3 +1,5 @@
+El Script para el csv se encuentra dentro de la vista principal de django : http://localhost:8000/
+
 Uso de Queries y Mutaciones:
 
 Get all songs and by genre,subgenre and similar band:
