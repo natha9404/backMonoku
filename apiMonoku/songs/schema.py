@@ -1,5 +1,5 @@
 import graphene
-from graphene import relay, ObjectType
+from graphene import relay, ObjectType, Mutation, String, Field
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 
@@ -41,9 +41,9 @@ class SongNode(DjangoObjectType):
         }
         interfaces = (relay.Node, )
 
-class Query(graphene.ObjectType):
+class Query(ObjectType):
     all_songs = graphene.List(SongType)
-    all_songs2 = DjangoFilterConnectionField(SongNode)    
+    all_songs_filter = DjangoFilterConnectionField(SongNode)    
     band_by_name = graphene.List(BandType, name=graphene.String(required=True))
     artist_by_name = graphene.List(ArtistType, name=graphene.String(required=True))
 
@@ -63,4 +63,17 @@ class Query(graphene.ObjectType):
         except Band.DoesNotExist:
             return None
 
-schema = graphene.Schema(query=Query)
+class CreateArtist(Mutation):
+    class Arguments:
+        name = String()
+
+    artist = Field(ArtistType)
+
+    def mutate(root, info, name):
+        artist = Artist.objects.create(name=name)
+        return CreateArtist(artist=artist)
+
+class MyMutations(ObjectType):
+    create_artist = CreateArtist.Field()
+
+schema = graphene.Schema(query=Query, mutation=MyMutations)
