@@ -29,6 +29,9 @@ class SongType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     all_songs = graphene.List(SongType)
+    """ song_by_genre =
+    song_by_subgenero =
+    song_by_similar_band = """
     band_by_name = graphene.Field(BandType, name=graphene.String(required=True))
     artist_by_name = graphene.Field(ArtistType, name=graphene.String(required=True))
 
